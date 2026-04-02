@@ -1,4 +1,4 @@
-
+import lang
 
 def repl():
     print('dumb lang repl 😊💕')
@@ -9,6 +9,7 @@ def repl():
         virgin_code = code.strip().lower()
         if virgin_code == 'break':
             break
+        lang.run(code)
             
 
 if __name__ == '__main__':
