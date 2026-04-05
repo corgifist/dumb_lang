@@ -1,15 +1,37 @@
 import ply.lex as lex
 
-keywords = [
-
-]
+keywords = {
+    'напечатать': 'PRINT'
+}
 
 tokens = (
     'WORD',
-    'NUMBER'
+    'KEYWORD',
+    'NUMBER',
+    'EQUALS',
+    'PLUS',
+    'MINUS',
+    'STAR',
+    'SLASH',
+    'LPAREN',
+    'RPAREN',
+    *keywords.values()
 )
 
-t_WORD = r'\w+'
+
+t_EQUALS = r'\='
+t_PLUS = r'\+'
+t_MINUS = r'\-'
+t_STAR = r'\*'
+t_SLASH = r'\/'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+
+def t_WORD(t):
+    r'[a-zA-Zа-яА-Я_][a-zA-Zа-яА-Я_0-9]*'
+    if t.value in keywords:
+        t.type = keywords[t.value]
+    return t
 
 def t_NUMBER(t):
     r'[+-]?(\d+\.)?\d+'
@@ -26,5 +48,4 @@ def t_error(t):
 
 t_ignore = ' \t'
 
-def build_lexer():
-    return lex.lex()
+lexer = lex.lex()

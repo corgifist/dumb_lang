@@ -1,2 +1,6 @@
 # oh no no no
 .venv
+
+# kinda pointless to push it to git
+parsetab.py
+parser.out
