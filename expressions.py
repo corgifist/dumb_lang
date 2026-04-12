@@ -1,13 +1,15 @@
-class PrintStatement:
-    def __init__(self, expr):
-        self.expr = expr
+import environment as env
 
-    def execute(self):
-        print(str(self.expr.eval()))
+class ConstantExpression:
+    def __init__(self, const):
+        self.const = const
 
-    def __repr__(self):
-        return f"напечатать {str(self.expr)}"
-
+    def eval(self):
+        return self.const
+    
+    def __str__(self):
+        return str(self.const)
+    
 class BinaryExpression:
     def __init__(self, expr1, expr2, op):
         self.expr1 = expr1
@@ -26,7 +28,7 @@ class BinaryExpression:
         
     def __repr__(self):
         return str(self.expr1) + f' {self.op} ' + str(self.expr2)
-
+    
 class UnaryExpression:
     def __init__(self, expr, op):
         self.expr = expr
@@ -40,14 +42,13 @@ class UnaryExpression:
         
     def __repr__(self):
         return f'{self.op}{str(self.expr)}'
-
-class ConstantExpression:
-    def __init__(self, const):
-        self.const = const
+    
+class VariableExpression:
+    def __init__(self, var):
+        self.var = var
 
     def eval(self):
-        return self.const
+        return env.vars[self.var]
     
-    def __str__(self):
-        return str(self.const)
-    
+    def __repr__(self):
+        return str(self.var)

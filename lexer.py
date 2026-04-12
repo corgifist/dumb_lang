@@ -6,7 +6,6 @@ keywords = {
 
 tokens = (
     'WORD',
-    'KEYWORD',
     'NUMBER',
     'EQUALS',
     'PLUS',

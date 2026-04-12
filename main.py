@@ -14,6 +14,9 @@ def repl():
 
 if __name__ == '__main__':
     # running repl by default because why not
-    repl()
+    try:
+        repl()
+    except KeyboardInterrupt:
+        pass
 else:
     raise RuntimeError('not really meant to be used as a module sry diva')
