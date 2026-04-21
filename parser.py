@@ -37,8 +37,37 @@ def p_expr_statement(p):
     p[0] = ExpressionStatement(p[1])
 
 def p_expression(p):
-    '''expression : additive'''
+    '''expression : logical_or'''
     p[0] = p[1]
+
+def p_logical_or(p):
+    '''logical_or : logical_or OR logical_or
+                  | logical_and'''
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = LogicalExpression(p[1], p[3], 'или')
+
+def p_logical_and(p):
+    '''logical_and : logical_and AND logical_and
+                   | logical_compare'''
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = LogicalExpression(p[1], p[3], 'и')
+
+def p_logical_compare(p):
+    '''logical_compare : logical_compare LESS logical_compare
+                       | logical_compare GREATER logical_compare
+                       | logical_compare LESS_EQUAL logical_compare
+                       | logical_compare GREATER_EQUAL logical_compare
+                       | logical_compare EQUAL_EQUAL logical_compare
+                       | logical_compare NOT_EQUAL logical_compare
+                       | additive'''
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = LogicalExpression(p[1], p[3], p[2])
 
 def p_additive(p):
     '''additive : additive PLUS additive

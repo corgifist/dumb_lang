@@ -52,3 +52,30 @@ class VariableExpression:
     
     def __repr__(self):
         return str(self.var)
+    
+class LogicalExpression:
+    def __init__(self, expr1, expr2, op):
+        self.expr1 = expr1
+        self.expr2 = expr2
+        self.op = op
+
+    def eval(self):
+        if self.op == '>':
+            return self.expr1.eval() > self.expr2.eval()
+        if self.op == '<':
+            return self.expr1.eval() < self.expr2.eval()
+        if self.op == '>=':
+            return self.expr1.eval() >= self.expr2.eval()
+        if self.op == '<=':
+            return self.expr1.eval() >= self.expr2.eval()
+        if self.op == '==':
+            return self.expr1.eval() == self.expr2.eval()
+        if self.op == '!=':
+            return self.expr1.eval() != self.expr2.eval()
+        if self.op == 'или':
+            return self.expr1.eval() or self.expr2.eval()
+        if self.op == 'и':
+            return self.expr1.eval() and self.expr2.eval()
+        
+    def __repr__(self):
+        return f'{self.expr1} {self.op} {self.expr2}'

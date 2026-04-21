@@ -1,7 +1,9 @@
 import ply.lex as lex
 
 keywords = {
-    'напечатать': 'PRINT'
+    'напечатать': 'PRINT',
+    'или': 'OR',
+    'и': 'AND'
 }
 
 tokens = (
@@ -14,6 +16,12 @@ tokens = (
     'SLASH',
     'LPAREN',
     'RPAREN',
+    'LESS',
+    'GREATER',
+    'LESS_EQUAL',
+    'GREATER_EQUAL',
+    'EQUAL_EQUAL',
+    'NOT_EQUAL',
     *keywords.values()
 )
 
@@ -25,6 +33,12 @@ t_STAR = r'\*'
 t_SLASH = r'\/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
+t_LESS = r'\<'
+t_GREATER = r'\>'
+t_LESS_EQUAL = r'\<\='
+t_GREATER_EQUAL = r'\>\='
+t_EQUAL_EQUAL = r'\=\='
+t_NOT_EQUAL = r'\!\='
 
 def t_WORD(t):
     r'[a-zA-Zа-яА-Я_][a-zA-Zа-яА-Я_0-9]*'
