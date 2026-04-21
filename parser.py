@@ -18,10 +18,15 @@ def p_statements(p):
     else:
         p[0] = p[1] + [p[2]]
 
+def p_block(p):
+    '''block : THEN statements END'''
+    p[0] = BlockStatement(p[2])
+
 def p_statement(p):
     '''statement : print_statement
                  | var_assign_statement
-                 | expr_statement'''
+                 | expr_statement
+                 | block_statement'''
     p[0] = p[1]
 
 def p_var_assign_statement(p):
@@ -35,6 +40,10 @@ def p_print_statement(p):
 def p_expr_statement(p):
     '''expr_statement : expression'''
     p[0] = ExpressionStatement(p[1])
+
+def p_block_statement(p):
+    '''block_statement : block'''
+    p[0] = p[1]
 
 def p_expression(p):
     '''expression : logical_or'''

@@ -3,7 +3,9 @@ import ply.lex as lex
 keywords = {
     'напечатать': 'PRINT',
     'или': 'OR',
-    'и': 'AND'
+    'и': 'AND',
+    'то': 'THEN',
+    'конец': 'END'
 }
 
 tokens = (

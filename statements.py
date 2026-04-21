@@ -30,3 +30,14 @@ class ExpressionStatement:
 
     def __repr__(self):
         return str(self.expr)
+    
+class BlockStatement:
+    def __init__(self, statements):
+        self.statements = statements
+
+    def execute(self):
+        for stmt in self.statements:
+            stmt.execute()
+
+    def __repr__(self):
+        return f"то {' '.join(map(lambda x: x.__repr__(), self.statements))} конец"
