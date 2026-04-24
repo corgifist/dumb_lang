@@ -5,7 +5,12 @@ keywords = {
     'или': 'OR',
     'и': 'AND',
     'то': 'THEN',
-    'конец': 'END'
+    'конец': 'END',
+    'если': 'IF',
+    'иначе': 'ELSE',
+    'пока': 'WHILE',
+    'ввод': 'INPUT',
+    'число': 'TO_NUMBER'
 }
 
 tokens = (
@@ -24,6 +29,8 @@ tokens = (
     'GREATER_EQUAL',
     'EQUAL_EQUAL',
     'NOT_EQUAL',
+    'STRING',
+    'PERCENT',
     *keywords.values()
 )
 
@@ -41,6 +48,8 @@ t_LESS_EQUAL = r'\<\='
 t_GREATER_EQUAL = r'\>\='
 t_EQUAL_EQUAL = r'\=\='
 t_NOT_EQUAL = r'\!\='
+t_STRING = r'"(?:\\.|[^"\n])*"'
+t_PERCENT = r'\%'
 
 def t_WORD(t):
     r'[a-zA-Zа-яА-Я_][a-zA-Zа-яА-Я_0-9]*'

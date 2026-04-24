@@ -8,7 +8,7 @@ class ConstantExpression:
         return self.const
     
     def __str__(self):
-        return str(self.const)
+        return str(self.const) if type(self.const) != str else f'"{self.const}"'
     
 class BinaryExpression:
     def __init__(self, expr1, expr2, op):
@@ -17,14 +17,22 @@ class BinaryExpression:
         self.op = op
 
     def eval(self):
+        a = self.expr1.eval()
+        b = self.expr2.eval()
+        if type(a) == str or type(b) == str and self.op == '+':
+            a = str(a)
+            b = str(b)
+
         if self.op == '+':
-            return self.expr1.eval() + self.expr2.eval()
+            return a + b
         if self.op == '-':
-            return self.expr1.eval() - self.expr2.eval()
+            return a - b
         if self.op == '*':
-            return self.expr1.eval() * self.expr2.eval()
+            return a * b
         if self.op == '/':
-            return self.expr1.eval() / self.expr2.eval()
+            return a / b
+        if self.op == '%':
+            return a % b
         
     def __repr__(self):
         return str(self.expr1) + f' {self.op} ' + str(self.expr2)
@@ -79,3 +87,23 @@ class LogicalExpression:
         
     def __repr__(self):
         return f'{self.expr1} {self.op} {self.expr2}'
+    
+class InputExpression:
+    def __init__(self, expr):
+        self.expr = expr
+
+    def eval(self):
+        return input(str(self.expr.eval()) if self.expr is not None else "")
+    
+    def __repr__(self):
+        return f'ввод {self.expr}' if self.expr is not None else 'ввод'
+    
+class ToNumberExpression:
+    def __init__(self, expr):
+        self.expr = expr
+
+    def eval(self):
+        return float(self.expr.eval())
+    
+    def __repr__(self):
+        return f'число {self.expr}'

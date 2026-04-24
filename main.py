@@ -1,4 +1,5 @@
 import lang
+import sys
 
 def repl():
     print('dumb lang repl 😊💕')
@@ -15,7 +16,11 @@ def repl():
 if __name__ == '__main__':
     # running repl by default because why not
     try:
-        repl()
+        if len(sys.argv) == 1:
+            repl()
+        elif len(sys.argv) > 1:
+            with open(sys.argv[1], 'r') as f:
+                lang.run(f.read())
     except KeyboardInterrupt:
         pass
 else:

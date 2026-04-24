@@ -9,6 +9,8 @@ def run(code):
     statements = p.parse(code)
     if statements is None:
         return
-    print(statements)
+    print("абстрактное синтаксическое дерево:")
+    for statement in statements:
+        print(statement)
     for statement in statements:
         statement.execute()

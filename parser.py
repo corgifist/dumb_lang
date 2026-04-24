@@ -26,8 +26,26 @@ def p_statement(p):
     '''statement : print_statement
                  | var_assign_statement
                  | expr_statement
-                 | block_statement'''
+                 | block_statement
+                 | if_statement
+                 | while_statement'''
     p[0] = p[1]
+
+def p_while_statement(p):
+    '''while_statement : WHILE expression statement'''
+    p[0] = WhileStatement(p[2], p[3])
+
+def p_if_statement(p):
+    '''if_statement : IF expression THEN statements ELSE statements END
+                    | IF expression THEN statements ELSE statement
+                    | IF expression statement'''
+    if len(p) == 8:
+        p[0] = IfStatement(p[2], BlockStatement(p[4]), BlockStatement(p[6]))
+    elif len(p) == 7:
+        p[0] = IfStatement(p[2], BlockStatement(p[4]), p[5])
+    elif len(p) == 4:
+        p[0] = IfStatement(p[2], p[3], None)
+
 
 def p_var_assign_statement(p):
     '''var_assign_statement : WORD EQUALS expression'''
@@ -81,6 +99,7 @@ def p_logical_compare(p):
 def p_additive(p):
     '''additive : additive PLUS additive
                 | additive MINUS additive
+                | additive PERCENT additive
                 | multiplicative'''
     if len(p) == 2:
         p[0] = p[1]
@@ -107,10 +126,19 @@ def p_unary(p):
 
 def p_primary(p):
     '''primary : LPAREN expression RPAREN
+               | INPUT expression
+               | TO_NUMBER expression
+               | STRING
                | WORD
                | NUMBER'''
     if len(p) == 4:
         p[0] = p[2]
+    elif len(p) == 3 and p[1] == 'ввод':
+        p[0] = InputExpression(p[2])
+    elif len(p) == 3 and p[1] == 'число':
+        p[0] = ToNumberExpression(p[2])
+    elif type(p[1]) == str and p[1][0] == '"':
+        p[0] = ConstantExpression(p[1][1:-1])
     elif type(p[1]) is str:
         p[0] = VariableExpression(p[1])
     else:
